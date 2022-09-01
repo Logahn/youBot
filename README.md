@@ -2,7 +2,7 @@
 
 ## Overview:
  
-Program developed to control a KUKA youBot robot to pick a cube and move it to a target position.
+Program developed to control KUKA youBot robot to pick a cube and move it to a target position.
 
 ## Metrics:
                                 t = 00:00:00

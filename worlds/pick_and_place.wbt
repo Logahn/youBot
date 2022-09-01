@@ -39,10 +39,11 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation -0.14577709654345167 -0.6357637953251387 0.7579930307576294 5.695684008048185
-  position -4.226157615078126 0.9596633187462624 1.2308877635928586
+  orientation -0.143120865194173 -0.53325231079995 0.8337615912073336 5.660324430182022
+  position -4.458630089403564 1.7507504915538967 1.489784529500955
   exposure 1.5
-  follow "youBot"
+  follow "youBot(1)"
+  followType "None"
 }
 TexturedBackground {
   texture "factory"
@@ -635,184 +636,9 @@ DEF MACHINERY Solid {
   rotationStep 0.261799
 }
 PlatformCart {
-  translation -2.3649928 1.0055135 0
+  translation -2.286 0.986 0
   rotation 0 0 -1 1.5708
   slot [
-    DEF TARGET_SLOTS Solid {
-      translation 0.1 0.14 0.11
-      rotation 1 0 0 1.5708
-      children [
-        DEF SLOTS Group {
-          children [
-            DEF BOTTOM Transform {
-              children [
-                Shape {
-                  appearance DEF CUBE_BOX_APPEARANCE PBRAppearance {
-                    baseColorMap ImageTexture {
-                      url [
-                        "https://raw.githubusercontent.com/cyberbotics/webots/R2022a/projects/samples/robotbenchmark/pick_and_place/worlds/textures/cardboard.jpg"
-                      ]
-                    }
-                    roughness 1
-                    metalness 0
-                  }
-                  geometry Box {
-                    size 0.3027 0.01 0.205
-                  }
-                }
-              ]
-            }
-            DEF BACK Transform {
-              translation 0 0.035 0.095
-              children [
-                DEF ROWS Shape {
-                  appearance USE CUBE_BOX_APPEARANCE
-                  geometry Box {
-                    size 0.3 0.06 0.015
-                  }
-                }
-              ]
-            }
-            DEF FRONT Transform {
-              translation 0 0.035 -0.095
-              children [
-                USE ROWS
-              ]
-            }
-            DEF LEFT Transform {
-              translation 0.1425 0.035 0
-              children [
-                DEF COLUMNS Shape {
-                  appearance USE CUBE_BOX_APPEARANCE
-                  geometry Box {
-                    size 0.015 0.06 0.175
-                  }
-                }
-              ]
-            }
-            DEF RIGHT Transform {
-              translation -0.1425 0.035 0
-              children [
-                USE COLUMNS
-              ]
-            }
-            DEF INTERNAL1 Transform {
-              translation -0.0475 0.03 0
-              children [
-                DEF INTERNAL_COLUMN Shape {
-                  appearance USE CUBE_BOX_APPEARANCE
-                  geometry Box {
-                    size 0.015 0.05 0.175
-                  }
-                }
-              ]
-            }
-            DEF INTERNAL2 Transform {
-              translation 0.0475 0.03 0
-              children [
-                USE INTERNAL_COLUMN
-              ]
-            }
-            Transform {
-              translation 0 0.03 0
-              children [
-                Shape {
-                  appearance USE CUBE_BOX_APPEARANCE
-                  geometry Box {
-                    size 0.08 0.05 0.015
-                  }
-                }
-              ]
-            }
-            Transform {
-              translation -0.095 0.03 0
-              children [
-                Shape {
-                  appearance USE CUBE_BOX_APPEARANCE
-                  geometry Box {
-                    size 0.08 0.05 0.015
-                  }
-                }
-              ]
-            }
-            Transform {
-              translation 0.095 0.03 0
-              children [
-                Shape {
-                  appearance USE CUBE_BOX_APPEARANCE
-                  geometry Box {
-                    size 0.08 0.05 0.015
-                  }
-                }
-              ]
-            }
-          ]
-        }
-        KukaBox {
-          translation 0.0925 0.03 0.05
-          color 0 1 0
-          size 0.05 0.05 0.05
-          contactMaterial "box"
-          physics NULL
-        }
-        KukaBox {
-          translation -0.0925 0.03 0.05
-          name "Kuka box(1)"
-          color 0 1 0
-          size 0.05 0.05 0.05
-          contactMaterial "box"
-          physics NULL
-        }
-        KukaBox {
-          translation 0 0.03 -0.04
-          rotation 0 1 0 0.02
-          name "Kuka box(2)"
-          color 0 1 0
-          size 0.05 0.05 0.05
-          contactMaterial "box"
-          physics NULL
-        }
-        KukaBox {
-          translation -0.089982001 0.03 -0.03820012
-          rotation 0 1 0 -0.008
-          name "Kuka box(3)"
-          color 0 1 0
-          size 0.05 0.05 0.05
-          contactMaterial "box"
-          physics NULL
-        }
-        KukaBox {
-          translation 0 0.03 0.05
-          name "Kuka box(4)"
-          color 0 1 0
-          size 0.05 0.05 0.05
-          contactMaterial "box"
-          physics NULL
-        }
-        DEF TARGET Transform {
-          translation 0.0925 0.03 -0.04
-        }
-      ]
-      boundingObject Group {
-        children [
-          USE BOTTOM
-          USE BACK
-          USE FRONT
-          USE LEFT
-          USE RIGHT
-          USE INTERNAL1
-          USE INTERNAL2
-          Transform {
-            translation 0 0.03 0
-            children [
-              Box {
-                size 0.27 0.05 0.015
-              }
-            ]
-          }
-        ]
-      }
-    }
     DEF TARGET_SLOTS Solid {
       translation 0.1 -0.07 0.11
       rotation 1 0 0 1.5708
@@ -1004,5 +830,12 @@ Youbot {
   translation -2.4 0 0.101
   rotation 0.04953177831291063 -0.02003589122744673 0.9985715627835006 -0.0020853071795858824
   controller "pick_and_place"
+  supervisor TRUE
+}
+Youbot {
+  translation -1.7 0.8 0.101
+  rotation 2.0890499967582463e-05 5.1644499919858916e-05 0.9999999984482164 3.13951
+  name "youBot(1)"
+  controller "pick_and_place2"
   supervisor TRUE
 }

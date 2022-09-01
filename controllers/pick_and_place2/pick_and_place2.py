@@ -1,5 +1,5 @@
-"""youBot controller for picking a cube from the conveyor and 
-    placing it on robot carrier."""
+"""youBot controller for picking a cube from the robot carrier and 
+    placing it in the box."""
 
 from controller import Robot
 
@@ -63,15 +63,29 @@ def forward(time):
         wheel.setVelocity(7.0) # maxVelocity = 14.81
     robot.step(time * timestep)
 
-def backward(time):
-    for wheel in wheels:
-        wheel.setVelocity(-7.0) # maxVelocity = 14.81
-    robot.step(time * timestep)
-
 #! Generic stop function
 def halt():
     for wheel in wheels:
         wheel.setVelocity(0.0)
+
+def pick_up():
+    armMotors[0].setPosition(1.7)
+    armMotors[1].setPosition(-1)
+    armMotors[2].setPosition(-1)
+    armMotors[3].setPosition(0)
+    finger1.setPosition(fingerMaxPosition)
+    finger2.setPosition(fingerMaxPosition)
+
+def close_grippers():
+    finger1.setPosition(0.013)     # Close gripper.
+    finger2.setPosition(0.013)
+
+def hand_up():
+    armMotors[0].setPosition(0)
+    armMotors[1].setPosition(0)
+    armMotors[2].setPosition(0)
+    armMotors[3].setPosition(0)
+    armMotors[4].setPosition(0)
 
 def fold_arms():
     armMotors[0].setPosition(-2.9)
@@ -80,90 +94,38 @@ def fold_arms():
     armMotors[3].setPosition(1.7)
     armMotors[4].setPosition(0)
 
-def stretch_arms():
-    armMotors[0].setPosition(2.9)
-    armMotors[1].setPosition(-1.0)
-    armMotors[2].setPosition(2.5)
-    armMotors[3].setPosition(-1.7)
-    armMotors[4].setPosition(0)
-
-def turn_around(time):
-#TODO: robot.step(70 * timestep) - produces a 90 degrees turn
-    wheels[0].setVelocity(14)
-    wheels[1].setVelocity(-14)
-    wheels[2].setVelocity(14)
-    wheels[3].setVelocity(-14)
-    robot.step(time * timestep)
-    # forward()
-
-def pick_up():
-    armMotors[1].setPosition(-0.55)
-    armMotors[2].setPosition(-0.9)
-    armMotors[3].setPosition(-1.5)
-    finger1.setPosition(fingerMaxPosition)
-    finger2.setPosition(fingerMaxPosition)
-
-    # Monitor the arm joint position to 
-    # detect when the motion is completed.
-    while robot.step(timestep) != -1:
-        if abs(armPositionSensors[3].getValue() - (-1.2)) < 0.01:
-        # Motion completed.
-            break
-    finger1.setPosition(0.013)     # Close gripper.
-    finger2.setPosition(0.013)
-    robot.step(50 * timestep)    # Wait until the gripper is closed.
-    armMotors[1].setPosition(0)    # Lift arm.
-    # Wait until the arm is lifted.
-    # robot.step(200 * timestep)
-def open_grippers():
-    finger1.setPosition(fingerMaxPosition)
-    finger2.setPosition(fingerMaxPosition)
-    robot.step(70 * timestep)
-
 def drop():
-    armMotors[0].setPosition(-2.9)
-    armMotors[1].setPosition(0)
-    armMotors[2].setPosition(-1)
-    armMotors[3].setPosition(-1)
-    armMotors[2].setPosition(-1.7)
-    armMotors[4].setPosition(2.9)
-
-def hand_up():
-    armMotors[0].setPosition(0)
-    armMotors[1].setPosition(0)
-    armMotors[2].setPosition(0)
+    # Move arm down
     armMotors[3].setPosition(0)
-    armMotors[4].setPosition(0)
+    armMotors[2].setPosition(-0.3)
+    robot.step(100 * timestep)
+
+    armMotors[1].setPosition(-1.0)
+    robot.step(100 * timestep)
+
+    armMotors[3].setPosition(-1.5)
+    robot.step(100 * timestep)
+
+    armMotors[2].setPosition(-0.4)
+    robot.step(50 * timestep)
+    armMotors[4].setPosition(-1)
+
+    # Open gripper.
     finger1.setPosition(fingerMaxPosition)
     finger2.setPosition(fingerMaxPosition)
+    robot.step(50 * timestep)
 
-
-#TODO: youBot default position:
-#TODO: x: -2.4; y: 0; z: 0.101
-#TODO: robot.step(70 * timestep) - produces a 90 degrees turn
-# Move arm and open gripper.
-#? arm[0] maxPosition = 2.9 || -2.9
-#? arm[1] maxPosition = 1.5 || -1.0
-#? arm[2] maxPosition = 2.5 || -2.6
-#? arm[3] maxPosition = 1.7 || -1.7
-#? arm[4] maxPosition = 2.9 || -2.9
-
-
-#! Functions call start here
-forward(520)# Move forward for specified timeStep value
 halt()
+robot.step(1100 * timestep)
 pick_up()
-turn_around(132)
-drop()
-forward(400)
-turn_around(70)
-halt()
-open_grippers()
+robot.step(400 * timestep)
+close_grippers()
+robot.step(100 * timestep)
 hand_up()
-backward(60)
-halt()
-robot.step(200 * timestep)
-turn_around(70)
+# forward(20)
+# halt()
+drop()
+# hand_up()
 fold_arms()
-forward(300)
-halt()
+
+

@@ -26,3 +26,4 @@ Some information about the environment and the robot that can be useful to impro
 * The robot's wheel radius is 5cm.
 
 ## Demonstration
+![](https://github.com/Logahn/youBot/blob/master/documentation/youBot1.gif?raw=true)
